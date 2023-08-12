@@ -8,8 +8,33 @@
 #include <iostream>
 
 
+// Correct implements of the node in the list 
+template <class _Type> class Node {
+private:
+	Node* next;
+	typename _Type data;
+
+public:
+	Node() : data(_Type()), next(nullptr) { };
+	Node(const _Type& data) : data(data), next(nullptr) { };
+	Node(_Type& data) : data(data), next(nullptr) { };
+
+	~Node() = default;
+
+
+	Node<_Type>* operator=(size_t t_size) const {
+		return ::operator new (t_size * sizeof(Node<_Type>));
+	}
+
+	constexpr _Type get_value() const noexcept {
+		return data;
+	}
+};
+
+
+
 template <class _Type, class T = unsigned long long,
-	class Allocator = std::allocator<_Type>>
+	class Allocator = std::allocator<Node<_Type>>>
 class List
 {
 	using _Traits = std::allocator_traits<Allocator>;
@@ -32,30 +57,8 @@ public:
 	void push_back(_Type data);
 
 private:
-
-
-
-	// Correct implements of the node in the list 
-	template <class _Type> class Node {
-	public:
-		Node* next;
-		typename _Type data;
-
-		Node() : data(_Type()), next(nullptr) { };
-		Node(const _Type& data) : data(data), next(nullptr) { };
-		Node(_Type& data) : data(data), next(nullptr) { };
-
-		~Node() = default;
-
-
-		Node<_Type>* operator=(size_t t_size) const {
-			return ::operator new (t_size * sizeof(Node<_Type>));
-		}
-	};
-
-
 	Node<_Type>* first;
-	Node<_Type*> last;
+	Node<_Type>* last;
 };
 
 
@@ -63,8 +66,10 @@ template<class _Type, class T,
 	class Allocator>
 inline void List<_Type, T, Allocator>::push_back(_Type data)
 {
-	std::allocator<Node<_Type>> alloc_2;
-	Node<_Type>* p_node = alloc_2.allocate(1);
+	Node<_Type>* p_node = _Traits::allocate(alloc_1, 1);
+	_Traits::construct(alloc_1, p_node, data);
+
+	std::cout << p_node->get_value() << std::endl;
 }
 
 
