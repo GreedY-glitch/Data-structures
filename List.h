@@ -14,7 +14,7 @@ private:
 	typename _Type data;
 
 public:
-	Node* next;
+	Node* next;		// UNSAFE
 
 	Node() : data(_Type()), next(nullptr) { };
 	Node(const _Type& data) : data(data), next(nullptr) { };
@@ -60,6 +60,8 @@ public:
 	void push_back(_Type data);
 	void print() const;
 
+	Node<_Type>* find(_Type elem) const;
+
 private:
 	Node<_Type>* first;
 	Node<_Type>* last;
@@ -84,7 +86,9 @@ inline void List<_Type, T, Allocator>::push_back(_Type data)
 	last = p_node;
 }
 
-template<class _Type, class T, class Allocator>
+
+template<class _Type, 
+	class T, class Allocator>
 inline void List<_Type, T, Allocator>::print() const
 {
 	if (first == nullptr) return;
@@ -96,6 +100,17 @@ inline void List<_Type, T, Allocator>::print() const
 		p = p->next;
 	}
 	std::cout << std::endl;
+}
+
+
+template<class _Type, 
+	class T, class Allocator>
+inline Node<_Type>* List<_Type, T, Allocator>::find(_Type elem) const
+{
+	Node<_Type>* p_node = first;
+
+	while (p_node && p_node->get_value() != elem) p_node = p_node->next;
+	return p_node ? p_node : nullptr;
 }
 
 

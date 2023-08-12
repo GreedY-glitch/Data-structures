@@ -4,11 +4,8 @@
 
 int main(int argc, char** argv)
 {
-	List<int> list;
-	list.push_back(10);
-	list.push_back(12);
-	list.push_back(18);
-
+	List<const char*> list;
+	list.push_back("Hello");
 	list.print();
 
 	return 0;
