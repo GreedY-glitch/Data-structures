@@ -127,7 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="binary_tree.h" />
+    <ClInclude Include="heap.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

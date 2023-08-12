@@ -4,6 +4,11 @@
 #define _list
 
 
+/*
+	The simpliest implementation of the list
+*/
+
+
 #include <memory>
 #include <iostream>
 

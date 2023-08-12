@@ -18,6 +18,15 @@
     <ClInclude Include="List.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="binary_tree.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="heap.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
