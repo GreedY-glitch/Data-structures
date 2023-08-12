@@ -5,8 +5,11 @@
 int main(int argc, char** argv)
 {
 	List<int> list;
-	if (list.is_empty()) std::cout << "List is empty!\n";
 	list.push_back(10);
+	list.push_back(12);
+	list.push_back(18);
+
+	list.print();
 
 	return 0;
 }

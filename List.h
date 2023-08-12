@@ -11,10 +11,11 @@
 // Correct implements of the node in the list 
 template <class _Type> class Node {
 private:
-	Node* next;
 	typename _Type data;
 
 public:
+	Node* next;
+
 	Node() : data(_Type()), next(nullptr) { };
 	Node(const _Type& data) : data(data), next(nullptr) { };
 	Node(_Type& data) : data(data), next(nullptr) { };
@@ -29,6 +30,8 @@ public:
 	constexpr _Type get_value() const noexcept {
 		return data;
 	}
+	
+	constexpr Node* get_next() const noexcept { return next; }
 };
 
 
@@ -55,6 +58,7 @@ public:
 	// _Type* get_value_of() const noexcept { return this->node->data; }
 	bool is_empty() { return first == nullptr; }
 	void push_back(_Type data);
+	void print() const;
 
 private:
 	Node<_Type>* first;
@@ -69,7 +73,29 @@ inline void List<_Type, T, Allocator>::push_back(_Type data)
 	Node<_Type>* p_node = _Traits::allocate(alloc_1, 1);
 	_Traits::construct(alloc_1, p_node, data);
 
-	std::cout << p_node->get_value() << std::endl;
+	// std::cout << p_node->get_value() << std::endl;
+
+	if (is_empty()) {
+		first = p_node;
+		last = p_node;
+		return;
+	}
+	last->next = p_node;
+	last = p_node;
+}
+
+template<class _Type, class T, class Allocator>
+inline void List<_Type, T, Allocator>::print() const
+{
+	if (first == nullptr) return;
+
+	Node<_Type>* p = first;
+	while (p)
+	{
+		std::cout << p->get_value() << " ";
+		p = p->next;
+	}
+	std::cout << std::endl;
 }
 
 
