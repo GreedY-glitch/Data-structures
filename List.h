@@ -64,8 +64,9 @@ public:
 	bool is_empty() { return first == nullptr; }
 	void push_back(_Type data);
 	void print() const;
-
 	Node<_Type>* find(_Type elem) const;
+	void pop_front();
+	void pop_back();
 
 private:
 	Node<_Type>* first;
@@ -116,6 +117,35 @@ inline Node<_Type>* List<_Type, T, Allocator>::find(_Type elem) const
 
 	while (p_node && p_node->get_value() != elem) p_node = p_node->next;
 	return p_node ? p_node : nullptr;
+}
+
+template<class _Type, 
+	class T, class Allocator>
+inline void List<_Type, T, Allocator>::pop_front()
+{
+	if (first == nullptr) return;
+
+	Node<_Type>* ptr = first;
+	first = ptr->next;
+
+	_Traits::deallocate(alloc_1, ptr, 1);
+}
+
+
+// bug
+template<class _Type, class T, class Allocator>
+inline void List<_Type, T, Allocator>::pop_back()
+{
+	if (first == last) pop_front();
+	else {
+		Node<_Type>* p_1 = first;
+
+		while (p_1->next != nullptr) p_1 = p_1->next; 
+		p_1->next = nullptr;
+		last = p_1;
+
+		_Traits::deallocate(alloc_1, p_1, 1);
+	}
 }
 
 
